@@ -19,9 +19,9 @@ in the account's root Pages repository if host-wide control is needed.
 
 ## Launch information still needed
 
-The supplied operator information and contact email are included. The full confirmed name of
-representing management is still missing from the imprint. Do not describe the legal pages as
-complete until this is supplied. Operator must also confirm exact registered company spelling.
+The supplied operator information, contact email and confirmed managing director Marlon Rüscher
+are included. The notices describe this marketing website only; app privacy terms and the
+final store/production information must be supplied separately before an app launch.
 No bank details or personal tax number are stored. No app URL, release date, pricing or app-store
 listing was supplied; the contact CTA is intentionally usable email feedback, not a fake download.
 
