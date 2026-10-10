@@ -1,0 +1,8 @@
+{
+  "updated_at": null,
+  "window_days": 28,
+  "search_console": null,
+  "analytics": null,
+  "geo": null,
+  "note": "No measurement connected. Null is missing data, never zero. Only aggregate non-personal data belongs here."
+}

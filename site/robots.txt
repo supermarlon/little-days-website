@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /little-days-website/
+Sitemap: https://supermarlon.github.io/little-days-website/sitemap.xml

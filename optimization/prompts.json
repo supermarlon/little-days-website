@@ -1,0 +1,9 @@
+{
+  "locale": "de-DE",
+  "prompts": [
+    "Welche Baby-Tagebuch-Apps gibt es für frisch gewordene Eltern?",
+    "Welche App hilft beim Festhalten von Stillen, Schlaf und Windeln?",
+    "Was ist Little Days und ist die App schon verfügbar?"
+  ],
+  "protocol": "Same engine, locale, date, search mode and prompt; record mentioned brands, cited URLs, answer and source. API answers are not equivalent to ChatGPT consumer rankings. Repeat samples; never treat one answer as a ranking."
+}

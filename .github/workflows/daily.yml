@@ -1,0 +1,53 @@
+name: Daily quality and optional GEO strategy
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: daily-quality
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: python3 scripts/daily-audit.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: daily-observations
+          path: work/daily-report.*
+          retention-days: 30
+  strategy:
+    if: vars.ENABLE_CODEX_STRATEGY == 'true'
+    needs: audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      recommendation: ${{ steps.codex.outputs.final-message }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      # Last step: no subsequent commands inherit the agent's environment.
+      - uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
+        id: codex
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: .github/codex/strategy.md
+          sandbox: read-only
+          safety-strategy: drop-sudo
+  report:
+    needs: strategy
+    if: needs.strategy.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Store strategy in workflow summary
+        env:
+          RECOMMENDATION: ${{ needs.strategy.outputs.recommendation }}
+        run: printf '%s\n' "$RECOMMENDATION" >> "$GITHUB_STEP_SUMMARY"

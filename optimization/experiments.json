@@ -1,0 +1,13 @@
+{
+  "experiments": [
+    {
+      "id": "baseline",
+      "status": "awaiting_data",
+      "hypothesis": "A clear product definition and visible answers help visitors and retrieval systems understand Little Days.",
+      "metric": "qualified referral visits and contact clicks",
+      "minimum_window_days": 28,
+      "baseline": null,
+      "result": null
+    }
+  ]
+}

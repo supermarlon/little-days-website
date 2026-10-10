@@ -1,0 +1,27 @@
+{
+  "status": "in development",
+  "source": "https://github.com/supermarlon/little-days/blob/main/README.md",
+  "verified_on": "2026-10-10",
+  "audience": "new parents and trusted caregivers",
+  "implemented_in_code": [
+    "feeding",
+    "sleep",
+    "diapers",
+    "notes",
+    "photos",
+    "family sharing",
+    "CSV export"
+  ],
+  "unconfirmed": [
+    "public app URL",
+    "store availability",
+    "pricing",
+    "launch date",
+    "production privacy guarantees"
+  ],
+  "rules": [
+    "Do not claim production availability from code alone",
+    "No medical advice or outcome claims",
+    "No invented testimonials, ratings or rankings"
+  ]
+}
