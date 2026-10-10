@@ -1,40 +1,71 @@
-name: Daily quality and optional GEO strategy
+name: Daily marketing measurements and optional API strategy
 on:
   schedule:
     - cron: '23 5 * * *'
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 concurrency:
-  group: daily-quality
+  group: daily-marketing
   cancel-in-progress: false
 jobs:
-  audit:
+  observe:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - run: python3 scripts/daily-audit.py
+      - name: Restore previous daily state
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          mkdir -p work/marketing
+          previous_run=$(gh run list --workflow daily.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -n "$previous_run" ]; then
+            if ! gh run download "$previous_run" --name marketing-state --dir work/marketing; then
+              echo 'Previous marketing state unavailable; starting a documented new baseline.' >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
+      - name: Validate measurement rules
+        run: python3 -m unittest discover -s tests -v
+      - name: Collect aggregate measurements and prioritize
+        env:
+          POSTHOG_READ_KEY: ${{ secrets.POSTHOG_READ_KEY }}
+          GSC_ACCESS_TOKEN: ${{ secrets.GSC_ACCESS_TOKEN }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+        run: python3 scripts/marketing/loop.py
+      - name: Check live site
+        if: success() || failure()
+        run: python3 scripts/daily-audit.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
-          name: daily-observations
-          path: work/daily-report.*
+          name: marketing-state
+          path: |
+            work/marketing/*.json
+            work/marketing/*.md
+            work/daily-report.*
           retention-days: 30
   strategy:
     if: vars.ENABLE_CODEX_STRATEGY == 'true'
-    needs: audit
+    needs: observe
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
       recommendation: ${{ steps.codex.outputs.final-message }}
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      # Last step: no subsequent commands inherit the agent's environment.
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: marketing-state
+          path: work/observed
       - uses: openai/codex-action@1d82a3dba7c7988ec71ecae1ed5b8e8db96495c5 # v1
         id: codex
         with:

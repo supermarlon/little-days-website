@@ -1,0 +1,8 @@
+{
+  "updated_at": "2026-10-10",
+  "opportunities": [
+    {"id":"eltern-editorial","channel":"earned_media","destination":"https://www.eltern.de/services/redaktion-ueber-uns-12366848.html","public_contact":"redaktion@eltern.de","verified_on":"2026-10-10","status":"draft_ready","angle":"Kostenlose Baby-Tagebuch- und Übergabe-Vorlagen als Organisationshilfe","asset":"https://supermarlon.github.io/little-days-website/ressourcen.html","next_action":"Owner reviews individual editorial pitch; no automated sending","budget_eur":0},
+    {"id":"producthunt","channel":"directory","destination":"https://www.producthunt.com/launch","verified_on":"2026-10-10","status":"waiting_for_product_readiness","angle":"Calm baby journal for new parents","next_action":"Verify actual product access, pricing, screenshots and onboarding first; prepare a personal maker profile","budget_eur":0},
+    {"id":"owned-social","channel":"owned_social","destination":null,"status":"needs_account_selection","angle":"Eine hilfreiche Vorlage statt eines Download-Versprechens","next_action":"Owner chooses own LinkedIn/Instagram account before any publication","budget_eur":0}
+  ]
+}
