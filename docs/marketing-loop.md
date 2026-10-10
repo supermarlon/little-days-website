@@ -40,7 +40,14 @@ nur aus linkedin, instagram, eltern, producthunt, partner, sonst unattributed.
 Google Search Console: verifizierte URL-Präfix-Property. Sitemap ist eingereicht; der erste
 Provider-Abruf meldete am 10. Oktober noch einen Lesefehler. Öffentlicher Abruf ist HTTP 200
 mit application/xml und gültigem XML, die hostweite robots.txt ist 404. Nach nächster
-Sitemap-Veröffentlichung erneut im Provider prüfen; kein Erfolg aus HTTP 200 ableiten.
+Sitemap-Veröffentlichung wurde erneut eingereicht und vom Provider angenommen; der
+Abrufstatus blieb zunächst fehlerhaft. Kein Indexierungserfolg aus HTTP 200 ableiten.
+
+PostHog-Lesezugriff ist seit 10. Oktober 2026 als POSTHOG_READ_KEY in GitHub eingerichtet,
+auf Query:Read und Projekt 300977 beschränkt. Verifizierter Actions-Durchlauf
+38061767221: API connected, alle fünf Ereignissummen für die abgeschlossene
+28-Tage-Periode noch 0. Fehlende Search-Console-API-Zugangsdaten und fehlende
+GEO-Beobachtungen bleiben ausdrücklich als fehlend markiert.
 
 Die Search-Console-API-Abfrage verwendet abgeschlossene 28 Tage mit 3 Tagen Verzögerung.
 Nur Property-Summen, keine Suchbegriffe oder Besucherkennungen. Benötigt bestehenden
