@@ -1,0 +1,12 @@
+{
+  "site_url": "https://supermarlon.github.io/little-days-website/",
+  "posthog_project_id": 300977,
+  "posthog_region": "EU",
+  "baseline_days": 28,
+  "max_site_changes_per_run": 1,
+  "max_concurrent_experiments": 1,
+  "external_posting": "draft_only",
+  "paid_services_budget_eur": 0,
+  "geo_measurement": "consumer observations only; no API ranking proxies",
+  "indexnow_key_file": "84c077a7535a1a95f966b15621916daf.txt"
+}

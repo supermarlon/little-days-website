@@ -51,7 +51,12 @@ assert p.ld[0]['@graph'][0]['url']==BASE
 html=(SITE/'index.html').read_text()
 for q in p.ld[0]['@graph'][1]['mainEntity']:
     assert q['name'] in html and q['acceptedAnswer']['text'] in html, 'FAQ drift'
-assert ET.parse(SITE/'sitemap.xml').find('.//{*}loc').text==BASE
+sitemap_urls=[v.text for v in ET.parse(SITE/'sitemap.xml').findall('.//{*}loc')]
+assert sitemap_urls[0]==BASE
+for url in sitemap_urls:
+    assert url.startswith(BASE), 'Off-site sitemap entry'
+    page=pages[url[len(BASE):] or 'index.html']
+    assert page.canonical==url and 'noindex' not in page.meta.get('robots',''), 'Sitemap/canonical mismatch'
 assert 'Sitemap: '+BASE+'sitemap.xml' in (SITE/'robots.txt').read_text()
 assert sum(f.stat().st_size for f in SITE.rglob('*') if f.is_file()) < 400_000, 'Page payload budget'
 print('PASS: local links, anchors, metadata, structured FAQ, sitemap and payload budget')

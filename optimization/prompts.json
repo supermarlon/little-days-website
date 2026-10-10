@@ -1,9 +1,9 @@
 {
-  "locale": "de-DE",
-  "prompts": [
-    "Welche Baby-Tagebuch-Apps gibt es für frisch gewordene Eltern?",
-    "Welche App hilft beim Festhalten von Stillen, Schlaf und Windeln?",
-    "Was ist Little Days und ist die App schon verfügbar?"
+  "locale":"de-DE",
+  "prompts":[
+    {"id":"discovery","text":"Welche Baby-Tagebuch-Apps gibt es für frisch gewordene Eltern?"},
+    {"id":"tracking","text":"Welche App hilft beim Festhalten von Stillen, Schlaf und Windeln?"},
+    {"id":"brand","text":"Was ist Little Days und ist die App schon verfügbar?"}
   ],
-  "protocol": "Same engine, locale, date, search mode and prompt; record mentioned brands, cited URLs, answer and source. API answers are not equivalent to ChatGPT consumer rankings. Repeat samples; never treat one answer as a ranking."
+  "protocol":"Observe consumer interfaces or an explicitly matching tracker. Same engine, locale, search mode and prompt. Record actual mention and citation, observation date and evidence privately. Separate chat from search. Weekly panel, repeat samples. Model API output is not consumer visibility. No market-wide ranking inferred from this panel."
 }
